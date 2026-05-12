@@ -8,7 +8,7 @@
 
 运行`rustup-init.exe`会看到如下的安装提示:
 
-注意:下图中的`15935`是用户名.
+注意:下面的`fgwsz`是用户名.
 ```
 Welcome to Rust!
 
@@ -18,20 +18,20 @@ programming language, and its package manager, Cargo.
 Rustup metadata and toolchains will be installed into the Rustup
 home directory, located at:
 
-  C:\Users\15935\.rustup
+  C:\Users\fgwsz\.rustup
 
 This can be modified with the RUSTUP_HOME environment variable.
 
 The Cargo home directory is located at:
 
-  C:\Users\15935\.cargo
+  C:\Users\fgwsz\.cargo
 
 This can be modified with the CARGO_HOME environment variable.
 
 The cargo, rustc, rustup and other commands will be added to
 Cargo's bin directory, located at:
 
-  C:\Users\15935\.cargo\bin
+  C:\Users\fgwsz\.cargo\bin
 
 This path will then be added to your PATH environment variable by
 modifying the PATH registry key at HKEY_CURRENT_USER\Environment.
@@ -101,7 +101,135 @@ Press the Enter key to continue.
 │ │ │ rustfmt.exe
 │ │ │ rustup.exe
 ```
+## `Linux`操作系统安装方式
+运行如下指令:
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+这句指令的含义是:
 
+1.使用安全的`HTTPS`+`TLS 1.2`连接,从官方地址下载`rustup`安装脚本.
+
+2.静默下载(不显示进度),只在出错时报错.
+
+3.将脚本内容直接交给当前系统的`sh`执行.
+
+4.脚本运行后会询问安装配置(通常默认即可),并自动完成`Rust`的安装和环境变量设置.
+
+但是由于国内网络连接受到限制,推荐使用如下的指令进行替代:
+```
+#临时切换镜像源
+export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
+#使用阿里云安装脚本
+curl --proto '=https' --tlsv1.2 -sSf https://mirrors.aliyun.com/repo/rust/rustup-init.sh | sh
+```
+运行结果:
+
+注意:下面的`fgwsz`是用户名.
+```
+info: downloading installer
+
+Welcome to Rust!
+
+This will download and install the official compiler for the Rust
+programming language, and its package manager, Cargo.
+
+Rustup metadata and toolchains will be installed into the Rustup
+home directory, located at:
+
+  /home/fgwsz/.rustup
+
+This can be modified with the RUSTUP_HOME environment variable.
+
+The Cargo home directory is located at:
+
+  /home/fgwsz/.cargo
+
+This can be modified with the CARGO_HOME environment variable.
+
+The cargo, rustc, rustup and other commands will be added to
+Cargo's bin directory, located at:
+
+  /home/fgwsz/.cargo/bin
+
+This path will then be added to your PATH environment variable by
+modifying the profile files located at:
+
+  /home/fgwsz/.profile
+  /home/fgwsz/.bashrc
+
+You can uninstall at any time with rustup self uninstall and
+these changes will be reverted.
+
+Current installation options:
+
+
+   default host triple: x86_64-unknown-linux-gnu
+     default toolchain: stable (default)
+               profile: default
+  modify PATH variable: yes
+
+1) Proceed with standard installation (default - just press enter)
+2) Customize installation
+3) Cancel installation
+```
+输入`1`,回车选择默认安装方式,安装完成之后会提示如下信息:
+```
+info: profile set to default
+info: default host triple is x86_64-unknown-linux-gnu
+info: syncing channel updates for stable-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: downloading 6 components
+        cargo installed                       10.48 MiB
+       clippy installed                        4.48 MiB
+    rust-docs installed                       21.18 MiB
+     rust-std installed                       28.20 MiB
+        rustc installed                       76.63 MiB
+      rustfmt installed                        2.06 MiB
+info: default toolchain set to stable-x86_64-unknown-linux-gnu
+
+  stable-x86_64-unknown-linux-gnu installed - rustc 1.95.0 (59807616e 2026-04-14)
+
+
+Rust is installed now. Great!
+
+To get started you may need to restart your current shell.
+This would reload your PATH environment variable to include
+Cargo's bin directory ($HOME/.cargo/bin).
+
+To configure your current shell, you need to source
+the corresponding env file under $HOME/.cargo.
+
+This is usually done by running one of the following (note the leading DOT):
+. "$HOME/.cargo/env"            # For sh/bash/zsh/ash/dash/pdksh
+source "$HOME/.cargo/env.fish"  # For fish
+source "~/.cargo/env.nu"  # For nushell
+source "$HOME/.cargo/env.tcsh"  # For tcsh
+. "$HOME/.cargo/env.ps1"        # For pwsh
+source "$HOME/.cargo/env.xsh"   # For xonsh
+```
+至此,完成安装.
+
+注意:上述安装过程中定义了一个用户环境变量:`~/.cargo/bin`.
+
+目录`~/.cargo/bin`的文件结构是这样的:
+```
+~/.cargo/bin
+├── cargo -> rustup
+├── cargo-clippy -> rustup
+├── cargo-fmt -> rustup
+├── cargo-miri -> rustup
+├── clippy-driver -> rustup
+├── rls -> rustup
+├── rust-analyzer -> rustup
+├── rustc -> rustup
+├── rustdoc -> rustup
+├── rustfmt -> rustup
+├── rust-gdb -> rustup
+├── rust-gdbgui -> rustup
+├── rust-lldb -> rustup
+└── rustup
+```
 ## `Rust`工具链
 从上面的安装信息完成提示中可以发现`rustup-init`安装了6个组件,
 这些组件构成了`Rust`工具链.
