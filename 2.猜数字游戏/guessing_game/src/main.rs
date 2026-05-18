@@ -5,7 +5,7 @@ use rand::Rng;
 fn main() {
     println!("Guess the number!");
 
-    let secter_number=rand::thread_rng().gen_range(1..101);
+    let secret_number=rand::thread_rng().gen_range(1..101);
 
     let mut guess=String::new();//放到loop循环外,规避堆内存频繁分配
 
@@ -25,7 +25,7 @@ fn main() {
 
         println!("Your guessed: {}",guess);
 
-        match guess.cmp(& secter_number){
+        match guess.cmp(& secret_number){
             Ordering::Less=>println!("Too small!"),
             Ordering::Greater=>println!("Too big!"),
             Ordering::Equal=>{
